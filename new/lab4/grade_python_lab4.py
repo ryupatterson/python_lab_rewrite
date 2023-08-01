@@ -1,8 +1,15 @@
 import unittest
 import answer_key.example_python_lab4 as expected
 import python_lab4 as actual
+import os
+
+pwd = os.getcwd()
 
 INFILE = "sample_logs.log"
+for root, dirs, files in os.walk(pwd):
+    for file in files:
+        if file == INFILE:
+            INFILE = os.path.join(pwd, root, file)
 
 class Lab4UnitTests(unittest.TestCase):
     def test_lab4(self):
