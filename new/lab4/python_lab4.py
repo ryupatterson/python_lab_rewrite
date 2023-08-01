@@ -24,26 +24,39 @@ def format_logs(string_list:list[str])->list[dict]:
     return 
 
 
+""" 
+    =================================================================================================================
+                                                    DO NOT TOUCH
+                                                    DO NOT TOUCH
+    =================================================================================================================
+                    You should NOT have to change anything in the main method to get this to work.
+"""
 if __name__ == "__main__":
     # cwd changes based on what directory you are in when running the script
     # this basically finds the absolute path of sample_logs.log
     pwd = os.getcwd()
 
-    INFILE = "sample_logs.log"
-    for root, dirs, files in os.walk(pwd):
+    input_file = "sample_logs.log"
+    for root, _, files in os.walk(pwd):
         for file in files:
-            if file == INFILE:
-                INFILE = os.path.join(pwd, root, file)
+            if file == input_file:
+                input_file = os.path.join(pwd, root, file)
 
-    string_list = list()
-    if(ingest_logs(INFILE)):
-        string_list = ingest_logs(INFILE)
-    
-    output = list()
-    if(format_logs(string_list)):
+    string_list = ingest_logs(input_file)
+
+    output = ""
+    if string_list:
         output = format_logs(string_list)
 
-    if(output):
-        print("Log Output:")
-        for log in output:
-            print(log)
+    output_dir = ""
+    for root, _, files in os.walk(pwd):
+        for file in files:
+            if file == os.path.basename(__file__):
+                output_dir = os.path.join(pwd, root)
+
+    if output:
+        with open(os.path.join(output_dir,"logs.json"), "w") as outfile:
+            outfile.write(output)
+    
+        print("JSON Output:")
+        print(output)
