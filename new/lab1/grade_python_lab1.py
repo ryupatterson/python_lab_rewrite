@@ -95,7 +95,14 @@ class Lab1UnitTests(unittest.TestCase):
         )
 
         a1, a2, a3 = python_lab1.question_17()
-        self.assertTrue(e1 == a1 and e2 == a2 and e3 == a3)
+        with self.subTest(e1=a1):
+            self.assertEqual(e1, a1)
+        
+        with self.subTest(e2=a2):
+            self.assertEqual(e2, a2)
+        
+        with self.subTest(e3=a3):
+            self.assertEqual(e3, a3)
 
     def test_question_18(self):
         expected = 10
@@ -105,7 +112,15 @@ class Lab1UnitTests(unittest.TestCase):
     def test_question_19(self):
         e1, e2, e3 = 5, 8, 11
         a1, a2, a3 = python_lab1.question_19()
-        self.assertTrue(e1 == a1 and e2 == a2 and e3 == a3)
+        
+        with self.subTest(e1=a1):
+            self.assertEqual(e1, a1)
+        
+        with self.subTest(e2=a2):
+            self.assertEqual(e2, a2)
+        
+        with self.subTest(e3=a3):
+            self.assertEqual(e3, a3)
     
     def test_question_20(self):
         expected = 13
