@@ -13,7 +13,7 @@
 
     Do NOT change the function declaration of ingest_logs or format_logs if you wish for any of the test cases to work.
 """
-import os
+import os, json
 from datetime import datetime
 
 def ingest_logs(file_path)->list[str]:
@@ -24,10 +24,12 @@ def ingest_logs(file_path)->list[str]:
     return string_list
 
 def format_logs(string_list:list[str])->list[dict]:
-    output = list()
+    output = {
+        "logs": []
+    }
     for line in string_list:
         separate = line.split()
-        output.append({
+        output["logs"].append({
             "timestamp": int(datetime.strptime(separate[3][1:], '%d/%b/%Y:%H:%M:%S').timestamp()),
             "request_ip": separate[0],
             "http_method": separate[5][1:],
@@ -53,6 +55,15 @@ if __name__ == "__main__":
     string_list = ingest_logs(INFILE)
     output = format_logs(string_list)
 
+    # OUTFILE = ""
+    # for root, dirs, files in os.walk(pwd):
+    #     for file in files:
+    #         if file == os.path.basename(__file__):
+    #             OUTFILE = os.path.join(pwd, root, file)
+
+    # with open("logs.json", "w") as outfile:
+    #     json.dump(output, outfile, indent=4)
+    
     print("Log Output:")
-    for log in output:
+    for log in output["logs"]:
         print(log)

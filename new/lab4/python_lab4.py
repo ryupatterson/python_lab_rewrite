@@ -35,9 +35,15 @@ if __name__ == "__main__":
             if file == INFILE:
                 INFILE = os.path.join(pwd, root, file)
 
-    string_list = ingest_logs(INFILE)
-    output = format_logs(string_list)
+    string_list = list()
+    if(ingest_logs(INFILE)):
+        string_list = ingest_logs(INFILE)
+    
+    output = list()
+    if(format_logs(string_list)):
+        output = format_logs(string_list)
 
-    print("Log Output:")
-    for log in output:
-        print(log)
+    if(output):
+        print("Log Output:")
+        for log in output:
+            print(log)
