@@ -24,7 +24,7 @@ def product_is_even(int1:int, int2:int)->bool:
     return
 
 
-# 3. Create a function that takes a list of strings as an argument. Reverse the list of strings as well as each 
+# 3. Create a function that takes a list of strings as an argument. Reverse the list of strings, as well as each 
 # string in the list. You are not allowed to use list.reverse(). Return the resulting list.
 
 def reverse_squared(string_list:list)->list:
@@ -33,8 +33,7 @@ def reverse_squared(string_list:list)->list:
 
 
 # 4. Create a nested loop that creates a multiplication table that is x (rows) by y (cols). The times table should
-# start with 1. You should return a 2 dimensional
-# array.
+# start with 1. You should return a 2 dimensional array.
 
 def times_tables(x:int, y:int)->list[list]:
 
@@ -47,7 +46,12 @@ def remove_vowels(string:str)->str:
 
     return 
 
-
+""" 
+    =================================================================================================================
+                                                    DO NOT TOUCH
+                                                    DO NOT TOUCH
+    =================================================================================================================
+"""
 if __name__ == "__main__":
     balance = 100.30
     withdrawal_amount = 30.00
