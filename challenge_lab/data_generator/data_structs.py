@@ -37,7 +37,7 @@ class IPv6Header(Enum):
     SRC_PORT = HeaderField("source_port", 2)
     DST_PORT = HeaderField("dest_port", 2)
     PROTOCOL_NUM = HeaderField("protocol_num", 1)
-    PAYLOAD_LENGTH = HeaderField("payload_lencode_to_binaryength", 4)
+    PAYLOAD_LENGTH = HeaderField("payload_length", 4)
 
 class IPv6Constants(Enum):
     HEADER_LENGTH = 49
