@@ -35,7 +35,9 @@ def sorted_by_earliest_timestamp(conversations_dict): # l
 if __name__ == "__main__":
     csv_out = list()
     message_dict_list = list()
-    with tarfile.open("example.tar.gz") as infile:
+
+    main_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    with tarfile.open(os.path.join(main_dir, "example.tar.gz")) as infile:
         for member in infile:
             parser = BinaryMessageParser()
             file = infile.extractfile(member)
