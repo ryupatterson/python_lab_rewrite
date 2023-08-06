@@ -65,9 +65,10 @@ if __name__ == "__main__":
 
     bin_convos = list()
     for key in sorted_keys:
-        p1, p2 = sorted(key.split("-"))
+        ip1, ip2 = key.split("-")
         convo = ""
-        convo+=f"{IP_NAME_CROSSWALK[p1]} and {IP_NAME_CROSSWALK[p2]}:\n"
+        p1, p2 = sorted([IP_NAME_CROSSWALK[ip1], IP_NAME_CROSSWALK[ip2]]) # get name, sorted by alphabetical order
+        convo+=f"{p1} and {p2}:\n"
         for message in conversations[key]:
             convo+=f"\t[{message[IPv4Header.TIMESTAMP.value.name]}] {IP_NAME_CROSSWALK[message[IPv4Header.SRC_IP.value.name]]}: "\
                 f"\"{message['payload']}\"\n"
