@@ -1,7 +1,6 @@
-'''
-Python Lab #1: Numbers, Math Operators, Strings, and Lists
-These labs are meant to familiarize yourself with the topics discussed in class.
-'''
+# Python Lab #1: Numbers, Math Operators, Strings, and Lists
+# These labs are meant to familiarize yourself with the topics discussed in class.
+
 
 # 1. Create a variable 'a' and assign the integer 5 to it. Return this variable.
 def question_1():

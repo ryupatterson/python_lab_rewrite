@@ -2,8 +2,7 @@
     This script generates logs that mimic an Apache Web server for use in python_lab4. The reference for this
     can be found here: https://www.researchgate.net/figure/Web-Logs-from-Apache-Web-Server_fig5_267775041
 """
-
-import random
+import random, os
 from datetime import datetime, timedelta
 
 def random_ip():
@@ -58,4 +57,6 @@ def write_file(output:str, logs:str):
 
 if __name__ == "__main__":
     logs = generate_logs(random.randint(10,15))
-    write_file("sample_logs.log", logs)
+    log_output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+    write_file(os.path.join(log_output_dir, "sample_logs.log"), logs)

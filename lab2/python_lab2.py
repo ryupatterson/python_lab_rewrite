@@ -1,7 +1,5 @@
-'''
-Python Lab #2: Functions
-These labs are meant to familiarize yourself with the topics discussed in class.
-'''
+# Python Lab #2: Functions
+# These labs are meant to familiarize yourself with the topics discussed in class.
 
 
 # 1. A bank customer wants to withdraw money from her account at an ATM. Create a program for the ATM to check the 

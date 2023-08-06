@@ -1,7 +1,7 @@
-"""
-    Lab 3 is File Manipulation. Please run this lab from the directory that it is stored in. It utilizes files that are in the 
-    example/ directory please do not edit this.
-"""
+# Python Lab 3: Directory Enumeration and File Manipulation
+# Please run this lab from the directory that it is stored in. It utilizes files that are in the 
+# example/ directory -- please do not edit this.
+
 import os, traceback
 
 # Return a list of the files in the "example" directory given to you.
