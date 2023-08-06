@@ -88,13 +88,13 @@ def question_14():
 
 # 15. Add the key, 'network_ips', to the dicitonary below. Its value will be the list ['10.10.10.1', '10.10.10.254']
 # Return the dictionary.
-def question_15():
+def question_15() -> dict:
     example_dict = {'attack_box': 'kali', 'redirector': 'centOS', 'target': 'solaris'}  # DO NOT EDIT
 
     return
 
 # 16. Change the value of the key, 'target', to 'Windows 7'. Return the dictionary.
-def question_16():
+def question_16() -> dict:
     example_dict = {'attack_box': 'kali', 'redirector': 'centOS', 'target': 'solaris'}  # DO NOT EDIT
 
     return
@@ -102,26 +102,26 @@ def question_16():
 # 17. Assign the dictionary below to a new variable, example_dict_2. In example_dict, change the value of the key
 # 'redirector' to 'freeBSD'. Now, create a copy of example_dict_2 assigned to variable example_dict_3. In 
 # example_dict_3, change the value of 'redirector' back to 'centOS'. Return all three dictionaries.
-def question_17():
+def question_17() -> tuple[dict,dict,dict]:
     example_dict = {'attack_box': 'kali', 'redirector': 'centOS', 'target': 'solaris'}  # DO NOT EDIT
 
     return
 
 # 18. Using only the example list, return the value 10.
-def question_18():
+def question_18() -> int:
     example_list = [[1, 2, 3], [4, 5, 6], [7, [8, 9]], [10, [11, [12, 13]]]] # DO NOT EDIT
     
     return
 
 # 19. Using only the example list, return the values 5, 8, and 11
-def question_19():    
+def question_19() -> tuple[int,int,int]:    
     example_list = [[1, 2, 3], [4, 5, 6], [7, [8, 9]], [10, [11, [12, 13]]]] # DO NOT EDIT
     
     return
 
 
 # 20. Using only the example list, return the value 13
-def question_20():
+def question_20() -> int:
     example_list = [[1, 2, 3], [4, 5, 6], [7, [8, 9]], [10, [11, [12, 13]]]] # DO NOT EDIT
     
     return
@@ -148,7 +148,7 @@ HEXDUMP = '78d2 94a6 75b1 147d da12 34dc 0800 4500 ' \
 # Example hexdump form of IP
 HEXDUMP_IP = 'c0a8 010f'
 
-def example_pcap_parsing(hexdump:str):
+def example_pcap_parsing(hexdump: str) -> str:
     #Ethernet Header
     dest_mac = hexdump[0:14]
     source_Mac = hexdump[15:29]
@@ -175,7 +175,7 @@ def example_pcap_parsing(hexdump:str):
 # 21. Use the example_pcap_parsing function above as a model and create a function that takes an IP address, 
 # formatted as a hex dump (a pair of 4 hex digits separated by a space, i.e. 'c0a8 010f'), and returns it
 # in its decimal form.
-def question_21(hexdump_ip:str)->str:
+def question_21(hexdump_ip: str) -> str:
 
     return 
 
@@ -183,7 +183,7 @@ def question_21(hexdump_ip:str)->str:
 # 21. Use the example_pcap_parsing function above as a model and create a function that takes a hexdump (formatted
 # like the one below in the main method) and returns a dictionary with the following keys:
 # src_ip, dst_ip, src_port, dst_port. Make sure to utilize the function you just wrote above.
-def question_22(hexdump:str):
+def question_22(hexdump:str) -> dict:
     
     return
 

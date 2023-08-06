@@ -9,7 +9,7 @@
     request_ip - - [timestamp UTC offset] "HTTP_METHOD requested_resource" http_response response_size
 
     The data processing should start, and end with the ingest_logs and format_logs methods. Helper methods are 
-    allowed. The output should be from format_logs, make sure the JSON uses an indent of 4.
+    allowed. The output should be from format_logs, make sure the JSON uses an indent of 4 (to make it readable).
 
     Do NOT change the function declaration of ingest_logs or format_logs if you wish for any of the test cases to work.
 """

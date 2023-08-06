@@ -10,7 +10,7 @@ These labs are meant to familiarize yourself with the topics discussed in class.
 # withdraw is less than the balance, calculate the new balance, and return the new balance, casted as a string, up to 
 # to decimal points.
 
-def withdrawal(balance:float, withdrawal_amount:float)->str:
+def withdrawal(balance: float, withdrawal_amount: float) -> str:
     
     return
 
@@ -19,7 +19,7 @@ def withdrawal(balance:float, withdrawal_amount:float)->str:
 # result is even or odd. If the result is even, the function will return true. If the result is odd, the function will
 # return false.
 
-def product_is_even(int1:int, int2:int)->bool:
+def product_is_even(int1: int, int2: int) -> bool:
     
     return
 
@@ -27,7 +27,7 @@ def product_is_even(int1:int, int2:int)->bool:
 # 3. Create a function that takes a list of strings as an argument. Reverse the list of strings, as well as each 
 # string in the list. You are not allowed to use list.reverse(). Return the resulting list.
 
-def reverse_squared(string_list:list)->list:
+def reverse_squared(string_list: list) -> list:
     
     return 
 
@@ -35,14 +35,14 @@ def reverse_squared(string_list:list)->list:
 # 4. Create a nested loop that creates a multiplication table that is x (rows) by y (cols). The times table should
 # start with 1. You should return a 2 dimensional array.
 
-def times_tables(x:int, y:int)->list[list]:
+def times_tables(x: int, y: int) -> list[list]:
 
     return 
 
 # 5. Write a function that takes a string parameter, 'string', that returns a string only containing the 
 # consonants in 'string'.
 
-def remove_vowels(string:str)->str:
+def remove_vowels(string: str) -> str:
 
     return 
 
