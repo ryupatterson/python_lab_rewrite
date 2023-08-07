@@ -37,13 +37,14 @@ if __name__ == "__main__":
     message_dict_list = list()
 
     main_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    
+    parser = BinaryMessageParser()
     with tarfile.open(os.path.join(main_dir, "example.tar.gz")) as infile:
         for member in infile:
-            parser = BinaryMessageParser()
             file = infile.extractfile(member)
-            parser.parse(file.read())
-            csv_out.append(parser.to_csv())
-            message_dict_list.extend(parser.to_dict())
+            binmsg = parser.parse(file.read())
+            csv_out.append(binmsg.to_csv())
+            message_dict_list.extend(binmsg.to_dict())
     
     answer_key_path = os.path.dirname(__file__)
 

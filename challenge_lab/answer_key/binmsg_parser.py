@@ -50,18 +50,75 @@ class BinaryMessageHeader(Enum):
     DATA_UNIT_NUM = HeaderField("number_data_units", 4)
     TOTAL_PAYLOAD_LENGTH = HeaderField("total_payload_length", 6)
 
-class BinaryMessageParser:
-    def __init__(self):
-        self.timestamp = 0
-        self.message_num = 0
-        self.payload_size = 0
-        self.messages = list()
 
-    def parse(self, file: bytes):
+class BinaryMessage:
+    def __init__(self, timestamp=0, message_num=0, payload_size=0):
+        self.timestamp = timestamp
+        self.message_num = message_num
+        self.payload_size = payload_size
+        self.messages = list()
+    
+    def to_csv(self):
+        output = StringIO()
+        writer = csv.writer(output, delimiter=",")
+        for message in self.messages:
+            writer.writerow(message.to_csv())
+        return output.getvalue()
+
+    def to_dict(self):
+        return [message.to_dict() for message in self.messages]
+
+
+class DataUnit:
+    def __init__(self, header_length: int, ip_version: int, timestamp: datetime, sequence: int, sip: str, dip: str, sport: int, \
+                 dport: int, protocol_num: int, payload_length: int, payload: str):
+        self.header_length = header_length
+        self.ip_version = ip_version
+        self.timestamp = timestamp
+        self.sequence = sequence
+        self.sip = sip
+        self.dip = dip
+        self.sport = sport
+        self.dport = dport
+        self.protocol_num = protocol_num
+        self.payload_length = payload_length
+        self.payload = payload
+    
+    # return as a list because csv.writeline() takes a list
+    def to_csv(self) -> list:
+        return [self.header_length,self.ip_version,self.timestamp,self.sequence,self.sip,self.dip, \
+        self.sport,self.dport, self.protocol_num, self.payload_length,self.payload]
+
+    def to_dict(self) -> dict:
+        return {
+            IPv4Header.HEADER_LENGTH.value.name: self.header_length,
+            IPv4Header.IP_VERSION.value.name: self.ip_version,
+            IPv4Header.TIMESTAMP.value.name: self.timestamp,
+            IPv4Header.SEQUENCE.value.name: self.sequence,
+            IPv4Header.SRC_IP.value.name: self.sip,
+            IPv4Header.DST_IP.value.name: self.dip,
+            IPv4Header.SRC_PORT.value.name: self.sport,
+            IPv4Header.DST_PORT.value.name: self.dport,
+            IPv4Header.PROTOCOL_NUM.value.name: self.protocol_num,
+            IPv4Header.PAYLOAD_LENGTH.value.name: self.payload_length,
+            "payload": self.payload
+        }
+
+    def __str__(self):
+        return self.payload
+
+    def __repr__(self):
+        return f"\"{self.payload}\""
+    
+class BinaryMessageParser:
+    def parse(self, file: bytes) -> BinaryMessage:
         input_stream = BytesIO(file)
-        self.timestamp = int.from_bytes(input_stream.read(BinaryMessageHeader.TIMESTAMP.value.size))
-        self.message_num = int.from_bytes(input_stream.read(BinaryMessageHeader.DATA_UNIT_NUM.value.size))
-        self.payload_size = int.from_bytes(input_stream.read(BinaryMessageHeader.TOTAL_PAYLOAD_LENGTH.value.size))
+        
+        binmsg = BinaryMessage(
+            timestamp=int.from_bytes(input_stream.read(BinaryMessageHeader.TIMESTAMP.value.size)),
+            message_num=int.from_bytes(input_stream.read(BinaryMessageHeader.DATA_UNIT_NUM.value.size)),
+            payload_size=int.from_bytes(input_stream.read(BinaryMessageHeader.TOTAL_PAYLOAD_LENGTH.value.size))
+        )
         while input_stream.tell() != len(file):
             header_length_bytes = input_stream.read(IPv4Header.HEADER_LENGTH.value.size)
             header_length = int.from_bytes(header_length_bytes)
@@ -69,7 +126,9 @@ class BinaryMessageParser:
             header = header_length_bytes + rest_of_header
             payload_length = int.from_bytes(header[-4:])
             payload = input_stream.read(payload_length)
-            self.messages.append(BinaryMessageParser.parse_message(header, payload))
+            binmsg.messages.append(BinaryMessageParser.parse_message(header, payload))
+        
+        return binmsg
         
     def parse_message(header, payload):
         ip_version = int.from_bytes(header[IPv4Header.HEADER_LENGTH.value.size:IPv4Header.HEADER_LENGTH.value.size+IPv4Header.IP_VERSION.value.size])
@@ -104,54 +163,4 @@ class BinaryMessageParser:
             int.from_bytes(protocol_num),
             int.from_bytes(payload_length),
             b64decode(payload).decode()
-        )            
-
-    def to_csv(self):
-        output = StringIO()
-        writer = csv.writer(output, delimiter=",")
-        for message in self.messages:
-            writer.writerow(message.to_csv())
-        return output.getvalue()
-
-    def to_dict(self):
-        return [message.to_dict() for message in self.messages]
-
-class DataUnit():
-    def __init__(self, header_length: int, ip_version: int, timestamp: datetime, sequence: int, sip: str, dip: str, sport: int, \
-                 dport: int, protocol_num: int, payload_length: int, payload: str):
-        self.header_length = header_length
-        self.ip_version = ip_version
-        self.timestamp = timestamp
-        self.sequence = sequence
-        self.sip = sip
-        self.dip = dip
-        self.sport = sport
-        self.dport = dport
-        self.protocol_num = protocol_num
-        self.payload_length = payload_length
-        self.payload = payload
-    
-    def to_csv(self):
-        return [self.header_length,self.ip_version,self.timestamp,self.sequence,self.sip,self.dip, \
-        self.sport,self.dport, self.protocol_num, self.payload_length,self.payload]
-
-    def to_dict(self):
-        return {
-            IPv4Header.HEADER_LENGTH.value.name: self.header_length,
-            IPv4Header.IP_VERSION.value.name: self.ip_version,
-            IPv4Header.TIMESTAMP.value.name: self.timestamp,
-            IPv4Header.SEQUENCE.value.name: self.sequence,
-            IPv4Header.SRC_IP.value.name: self.sip,
-            IPv4Header.DST_IP.value.name: self.dip,
-            IPv4Header.SRC_PORT.value.name: self.sport,
-            IPv4Header.DST_PORT.value.name: self.dport,
-            IPv4Header.PROTOCOL_NUM.value.name: self.protocol_num,
-            IPv4Header.PAYLOAD_LENGTH.value.name: self.payload_length,
-            "payload": self.payload
-        }
-
-    def __str__(self):
-        return self.payload
-
-    def __repr__(self):
-        return f"\"{self.payload}\""
+        ) 
